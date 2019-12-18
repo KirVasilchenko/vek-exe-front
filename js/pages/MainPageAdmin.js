@@ -25,15 +25,20 @@ export default class MainPageAdmin {
                       <input type="text" data-id="name-input" class="form-control" id="name-input">
                     </div>
                     <div class="form-group">
-                      <div class="custom-file">
-                        <input type="hidden" data-id="media-name-input">
-                        <input type="file" data-id="media-input" class="custom-file-input" id="media-input">
-                        <label class="custom-file-label" for="media-input">Картинка</label>
-                      </div>
-                       <div class="form-group">
-                      <label for="content-input">Цена</label>
+                      <label for="price-input">Цена</label>
                       <input type="number" data-id="price-input" class="form-control" id="price-input">
+                    </div>  
+                    <div class="form-group">
+                      <label for="quantity-input">Количество</label>
+                      <input type="number" data-id="quantity-input" class="form-control" id="quantity-input">
                     </div>
+                    <div class="form-group">
+                      <label for="image-input">URL картинки</label>
+                      <input type="text" data-id="image-input" class="form-control" id="image-input">
+                    </div>
+                    <div class="form-group">
+                      <label for="description-input">Описание</label>
+                      <input type="text" data-id="description-input" class="form-control" id="description-input">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                   </form>
@@ -83,9 +88,43 @@ export default class MainPageAdmin {
 
         this._errorModal = $('[data-id=error-modal]'); // jquery
         this._errorMessageEl = this._rootEl.querySelector('[data-id=error-message]');
-
         this._itemsContainerEl = this._rootEl.querySelector('[data-id=items-container]');
 
+
+        this._itemCreateFormEl = this._rootEl.querySelector('[data-id=item-edit-form]');
+        this._idInputEl = this._itemCreateFormEl.querySelector('[data-id=id-input]');
+        this._nameInputEl = this._itemCreateFormEl.querySelector('[data-id=name-input]');
+        this._priceInputEl = this._itemCreateFormEl.querySelector('[data-id=price-input]');
+        this._quantityInputEl = this._itemCreateFormEl.querySelector('[data-id=quantity-input]');
+        this._imageInputEl = this._itemCreateFormEl.querySelector('[data-id=image-input]');
+        this._descriptionInputEl = this._itemCreateFormEl.querySelector('[data-id=description-input]');
+
+        this._itemCreateFormEl.addEventListener('submit', evt => {
+            evt.preventDefault();
+            const data = {
+                id: Number(this._idInputEl.value),
+                name: this._nameInputEl.value,
+                price: this._priceInputEl.value,
+                quantity: this._quantityInputEl.value,
+                image: this._imageInputEl.value,
+                description: this._descriptionInputEl.value,
+
+            };
+            this._context.post('/items', JSON.stringify(data), {'Content-Type': 'application/json'},
+                text => {
+                    this._idInputEl.value = 0;
+                    this._nameInputEl.value = '';
+                    this._priceInputEl.value = '';
+                    this._quantityInputEl.value = '';
+                    this._imageInputEl.value = '';
+                    this._descriptionInputEl.value = '';
+
+                    this.loadAll();
+                },
+                error => {
+                    this.showError(error);
+                });
+        });
         this.loadAll();
         this.pollNewItems();
     }
@@ -112,6 +151,8 @@ export default class MainPageAdmin {
           <img src="${item.image}" class="card-img-top" alt="...">
           <div class="card-body">
             <p class="card-text">${item.name}</p>
+            <p class="card-text">Цена: ${item.price}</p>
+            <p class="card-text">Количество: ${item.quantity}</p>
             <p class="card-text">Desc: ${item.description}</p>
           </div>
           <div class="card-footer">
