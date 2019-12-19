@@ -40,4 +40,3 @@ const translations = {
     'error.validation.stop_list': 'We hope we can inspire you to use more positive statements',
   }
 };
-
