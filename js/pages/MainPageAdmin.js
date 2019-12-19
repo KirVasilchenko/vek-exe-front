@@ -10,6 +10,7 @@ export default class MainPageAdmin {
         this._rootEl.innerHTML = `<div class="container">` +
             common.brand() +
             common.navActive("menu-main", "/admin/main", "Shop") +
+            common.navSimple("menu-print", "#", "Print price") +
             common.navSimple("menu-news", "/admin/news", "Newsfeed") +
             common.navSimple("menu-messages", "/admin/messages", "Messages") +
             common.navSimple("menu-user", "/main", "Turn to user") +
@@ -98,6 +99,13 @@ export default class MainPageAdmin {
         this._quantityInputEl = this._itemCreateFormEl.querySelector('[data-id=quantity-input]');
         this._imageInputEl = this._itemCreateFormEl.querySelector('[data-id=image-input]');
         this._descriptionInputEl = this._itemCreateFormEl.querySelector('[data-id=description-input]');
+
+        this._printPriceEl = this._itemCreateFormEl.querySelector('[data-id=menu-print]');
+
+        this._printPriceEl.addEventListener('click', evt => {
+            this._context.get('/items/price')
+        });
+
 
         this._itemCreateFormEl.addEventListener('submit', evt => {
             evt.preventDefault();
