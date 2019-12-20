@@ -39,7 +39,6 @@ export default class NewsPage {
         <div class="row" data-id="posts-container">
         </div>
       </div>
-      <!-- TODO: https://getbootstrap.com/docs/4.4/components/modal/ -->
       <div class="modal fade" data-id="error-modal" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -82,10 +81,7 @@ export default class NewsPage {
         this._mediaInputEl = this._postCreateFormEl.querySelector('[data-id=media-input]');
 
         this._mediaInputEl.addEventListener('change', evt => {
-            // evt.currentTarget -> тот, чей обработчик события сейчас выполняется
-            // File -> Blob
             const [file] = Array.from(evt.currentTarget.files);
-            // FormData -> сам выставит нужные заголовки и закодирует тело запроса
             const formData = new FormData();
             formData.append('file', file);
             this._context.post('/files/multipart', formData, {},

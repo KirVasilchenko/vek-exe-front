@@ -48,10 +48,9 @@ export default class MainPageAdmin {
             </div>
         </div>
 
-<div class="row" data-id="items-container">
+        <div class="row" data-id="items-container">
         </div>
       </div> 
-      <!-- TODO: https://getbootstrap.com/docs/4.4/components/modal/ -->
       <div class="modal fade" data-id="error-modal" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">

@@ -29,6 +29,8 @@ const translations = {
     'error.validation.min_size': 'Минимальный размер должен быть больше',
     'error.validation.max_size': 'Максимальный размер должен быть меньше',
     'error.validation.stop_list': 'Используются слова из запрещенного списка слов',
+    'error.bad_request': 'Неправильный запрос',
+    'error.bad_filetype': 'Неверный тип файла',
   },
   en: {
     'error.network': 'Network error',
@@ -38,5 +40,7 @@ const translations = {
     'error.validation.min_size': 'We are strongly encourage you to use more symbols',
     'error.validation.max_size': 'You can take as a hint our humble advice to use a little bit less symbols',
     'error.validation.stop_list': 'We hope we can inspire you to use more positive statements',
+    'error.bad_request': 'Cannot resolve request. Consider some changes or try again later, please',
+    'error.bad_filetype': 'It is highly recommended to use proper file types.',
   }
 };
